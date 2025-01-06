@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register(Request $request)
+
+
+    //signup
+    public function register()
+    {
+        return view('auth.signup');
+    }
+
+
+    public function registerStore(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $user = User::create([
@@ -22,10 +31,22 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return response()->json(['message' => 'User registered successfully!', 'user' => $user], 201);
+        update_field('role', 'user', 'user', $user->id);
+        
+        //user login
+        auth()->login($user); 
+
+        return redirect()->route('home');
     }
 
-    public function login(Request $request)
+
+    //index
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    public function loginStor(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -40,4 +61,23 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
+
+    //logout
+    public function logout()
+    {
+        auth()->logout();
+
+        return redirect()->route('login');
+    }
+
+
+
+
+
+
+
+
+
 }
+
+

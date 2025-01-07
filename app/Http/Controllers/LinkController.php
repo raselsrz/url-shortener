@@ -10,7 +10,9 @@ class LinkController extends Controller
     //index
     public function index()
     {
-        $links = ShortUrl::latest()->paginate(10);
+        //$links = ShortUrl::latest()->paginate(10);
+
+        $links = ShortUrl::where('user_id', auth()->user()->id)->latest()->paginate(10);
 
         return view('home.allLink', compact('links'));
     }
@@ -31,6 +33,12 @@ class LinkController extends Controller
             'title' => 'required|string|max:255',
             'link' => 'required|url',
         ]);
+
+        //link check if exist
+        $link = ShortUrl::where('link', $request->link)->first();
+        if ($link) {
+            return redirect()->back()->with('error', 'Link already exist');
+        }
 
 
         $link = new ShortUrl;
@@ -70,6 +78,12 @@ class LinkController extends Controller
             'title' => 'required|string|max:255',
             'link' => 'required|url',
         ]);
+
+        //link check if exist
+        $link = ShortUrl::where('link', $request->link)->where('id', '!=', $id)->first();
+        if ($link) {
+            return redirect()->back()->with('error', 'Link already exist');
+        }
 
         $link = ShortUrl::find($id);
         $link->title = $request->title;

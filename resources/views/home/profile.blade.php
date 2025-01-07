@@ -70,7 +70,7 @@
     
     
     
-                        <button type="submit" class="btn btn-sm bg-surface-secondary btn-neutral" style="width: 20%; " >Add Post</button>
+                        <button type="submit" class="btn btn-sm bg-surface-secondary btn-neutral" style="width: 20%; " >Update</button>
                     </form>
                 </div>
             </div>

@@ -52,15 +52,22 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
+        // Find the user by email
         $user = User::where('email', $request->email)->first();
-
+    
         if ($user && Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Login successful!', 'user' => $user], 200);
+            // Log in the user (set session)
+            auth()->login($user);
+    
+            // Redirect to home route
+            return redirect()->route('home')->with('success', 'Logged in successfully!');
         }
-
-        return response()->json(['message' => 'Invalid credentials'], 401);
+    
+        // Redirect back with error message
+        return redirect()->back()->with('error', 'Email or password is incorrect!');
     }
+    
 
     //logout
     public function logout()

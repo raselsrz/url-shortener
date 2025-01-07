@@ -16,6 +16,14 @@
                     </div>
                 @endif
 
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="bi bi-exclamation-triangle"></i></span>
+                        <span class="alert-text">{{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 @if($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <span class="alert-icon"><i class="bi bi-exclamation-triangle"></i></span>
@@ -57,7 +65,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-sm bg-surface-secondary btn-neutral" style="width: 20%;">Add Post</button>
+                        <button type="submit" class="btn btn-sm bg-surface-secondary btn-neutral" style="width: 20%;">Add Link</button>
                     </form>
                 </div>
             </div>

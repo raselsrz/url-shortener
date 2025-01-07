@@ -13,7 +13,17 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" href="{{ route('registerStore') }}" >Sign Up</a>
                 </li>
+
+                
+
             </ul>
+            @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="bi bi-exclamation-triangle"></i></span>
+                        <span class="alert-text">{{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             <div class="tab-content" id="authTabContent">
                 <!-- Login Form -->
                 <div class="tab-pane fade show active" id="login" role="tabpanel">

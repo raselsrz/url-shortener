@@ -44,7 +44,7 @@
                         <a href="#" class="dropdown-item">Settings</a>
                         <a href="#" class="dropdown-item">Billing</a>
                         <hr class="dropdown-divider">
-                        <a href="/logout" onclick="return confirm('Are you sure you want to logout?')" class="dropdown-item">Logout</a>
+                        <a href="{{ route('logout') }}" onclick="return confirm('Are you sure you want to logout?')" class="dropdown-item">Logout</a>
                     </div>
                 </div>
             </div>
@@ -58,25 +58,25 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/all_post.php">
+                        <a class="nav-link" href="{{ route('links') }}">
                             <i class="bi bi-postcard"></i> All Link
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/addpost.php">
+                        <a class="nav-link" href="{{ route('add') }}">
                             <i class="bi bi-building-add"></i> Add Link
                         </a>
                     </li>
 
                     {{-- profile --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">
+                        <a class="nav-link" href="{{ route('profile') }}">
                             <i class="bi bi-person"></i> Profile
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout" onclick="return confirm('Are you sure you want to logout ?')">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="return confirm('Are you sure you want to logout ?')">
                             <i class="bi bi-box-arrow-left"></i> Logout
                             
                         </a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ShortUrl;
 use App\Models\CustomFields;
 use App\Models\CustomOptions;
 
@@ -8,6 +9,20 @@ function rasel()
 {
     return 'Rasel';
 }
+
+
+//short url random string
+function short_url($length = 6)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
 
 function is_serialized($data)
 {
@@ -65,4 +80,11 @@ function get_option($name, $default = '')
 function update_option($name, $value)
 {
     CustomOptions::setOption($name, $value);
+}
+
+
+//total links count
+function total_links()
+{
+    return ShortUrl::where('user_id', auth()->user()->id)->count();
 }

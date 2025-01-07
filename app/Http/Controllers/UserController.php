@@ -71,6 +71,54 @@ class UserController extends Controller
     }
 
 
+    //profile
+    public function profile()
+    {
+
+        $user = auth()->user();
+
+        return view('home.profile', compact('user'));
+    }
+
+    //profileUpdate
+    public function profileUpdate(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . auth()->id(),
+        ]);
+
+        $user = auth()->user();
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        if ($request->password) {
+
+            $request->validate([
+                'current_password' => 'required|min:6',
+                'password' => 'required|min:6',
+            ]);
+            
+            //current password check
+            if (Hash::check($request->current_password, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            } else {
+                return back()->with('error', 'Current password is incorrect!');
+            }
+
+        }
+
+
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully!');
+    }
+
+
 
 
 

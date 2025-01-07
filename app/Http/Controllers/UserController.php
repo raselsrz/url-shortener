@@ -13,7 +13,10 @@ class UserController extends Controller
     //signup
     public function register()
     {
-        return view('auth.signup');
+
+        $title = "Register";
+
+        return view('auth.signup', compact('title'));
     }
 
 
@@ -43,7 +46,10 @@ class UserController extends Controller
     //index
     public function login()
     {
-        return view('auth.login');
+
+        $title = "Login";
+
+        return view('auth.login', compact('title'));
     }
 
     public function loginStor(Request $request)

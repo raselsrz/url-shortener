@@ -12,9 +12,11 @@ class LinkController extends Controller
     {
         //$links = ShortUrl::latest()->paginate(10);
 
+        $title = "Admin Links";
+
         $links = ShortUrl::where('user_id', auth()->user()->id)->latest()->paginate(10);
 
-        return view('home.allLink', compact('links'));
+        return view('home.allLink', compact('links', 'title'));
     }
 
 
@@ -28,6 +30,7 @@ class LinkController extends Controller
     //create
     public function create(Request $request)
     {
+
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -67,8 +70,11 @@ class LinkController extends Controller
     //edit
     public function edit($id)
     {
+
+        $title = "Links Edit";
+
         $link = ShortUrl::find($id);
-        return view('home.edit', compact('link'));
+        return view('home.edit', compact('link', 'title'));
     }
 
     //update
